@@ -1,24 +1,23 @@
-import logo from './logo.svg';
+import React from "react";
+import Customer from "./components/Customer";
+
 import './App.css';
 
+
+const customer = {
+  'id': 1,
+  'image' : 'https://avatars.githubusercontent.com/u/12345?v=4',
+  'name': 'honggildong',
+  'birthday': '961222'
+}
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Customer 
+    id = {customer.id}
+    image = {customer.image}
+      name = {customer.name} 
+      birthday = {customer.birthday}
+    />
   );
 }
 
