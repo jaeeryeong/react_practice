@@ -1,38 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Customer from "./components/Customer";
 import Table from '@mui/material/Table';
 import TableHead from '@mui/material/TableHead';
 import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
-import Paper from '@mui/material/Paper';
 import './App.css';
+import { common } from "@mui/material/colors";
 
 
-
-
-const customers = [
-  {
-  'id': 1,
-  'image' : 'https://avatars.githubusercontent.com/u/12345?v=4',
-  'name': 'honggildong',
-  'birthday': '961222'
-  },
-  {
-    'id': 2,
-    'image' : 'https://avatars.githubusercontent.com/u/12345?v=4',
-    'name': 'honggildong2',
-    'birthday': '961223'
-    },
-    {
-      'id': 3,
-      'image' : 'https://avatars.githubusercontent.com/u/12345?v=4',
-      'name': 'honggildong3',
-      'birthday': '961224'
-      }
-    ]
 
 function App() {
+
+  const [customers, setCustomers] = useState([]);
+
+  useEffect(() =>{
+    callApi()
+    .then(res => setCustomers(res))
+    .catch(err => console.log(err));
+  }, []);
+
+  const callApi = async () => {
+    const response = await fetch('/api/customers');
+    const body = await response.json();
+    return body;
+  }
+
   return (
       
     <Table >
@@ -45,7 +38,7 @@ function App() {
           </TableRow>
         </TableHead>
         <TableBody>
-        {customers.map(c => { 
+        {customers ? customers.map(c => { 
           return (
           <Customer
             key={c.id} 
@@ -55,7 +48,7 @@ function App() {
             birthday = {c.birthday}
             />
           );
-        })}
+        }) : ""}
         </TableBody>
     </Table>  
   
